@@ -158,7 +158,9 @@ export default function Bookmarks({
       <div className="w-full max-w-md mt-6">
         {toast && (
           <div
-            className={`fixed top-5 left-1/2 -translate-x-1/2 z-50 px-6 py-3 rounded-full shadow-2xl text-sm font-bold bg-${toast.type === "success" ? "green" : "red"}-600 text-white flex items-center gap-2`}
+            className={`fixed top-5 left-1/2 -translate-x-1/2 z-50 px-6 py-3 rounded-full shadow-2xl text-sm font-bold flex items-center gap-2 text-white ${
+              toast.type === "success" ? "bg-green-600" : "bg-red-600"
+            }`}
           >
             {toast.msg}
           </div>
@@ -182,7 +184,7 @@ export default function Bookmarks({
           />
           <button
             disabled={loading}
-            className="w-full bg-blue-600 text-white py-2.5 rounded-lg font-bold shadow-md active:scale-95"
+            className="w-full bg-blue-600 text-white py-2.5 rounded-lg font-bold shadow-md active:scale-95 disabled:opacity-50"
           >
             {loading ? "Adding..." : "Add Bookmark"}
           </button>
