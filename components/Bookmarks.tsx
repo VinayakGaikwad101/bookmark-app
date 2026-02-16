@@ -118,12 +118,23 @@ export default function Bookmarks({
     const result = await addBookmarkAction(formData);
 
     if (result?.error) {
-      showToast(
+      const rawError =
         typeof result.error === "string"
           ? result.error
-          : (result.error as any).message,
-        "error",
-      );
+          : (result.error as any).message || "";
+
+      let friendlyMsg = rawError;
+
+      if (
+        rawError.includes("unique_title_per_user") ||
+        rawError.includes("duplicate key")
+      ) {
+        friendlyMsg = "You already have a bookmark with this title.";
+      } else if (rawError.includes("url_format_check")) {
+        friendlyMsg = "Please enter a valid URL.";
+      }
+
+      showToast(friendlyMsg, "error");
     } else {
       setTitle("");
       setUrl("");
